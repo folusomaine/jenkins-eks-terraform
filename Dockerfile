@@ -1,12 +1,12 @@
-FROM jenkins/jenkins:2.60.1
+FROM jenkins/jenkins:2.277.4-lts
 
 # Distributed Builds plugins
 RUN /usr/local/bin/install-plugins.sh ssh-slaves
 
-# install Notifications and Publishing plugins
-RUN /usr/local/bin/install-plugins.sh email-ext
-RUN /usr/local/bin/install-plugins.sh mailer
-RUN /usr/local/bin/install-plugins.sh slack
+# # install Notifications and Publishing plugins
+# # RUN /usr/local/bin/install-plugins.sh email-ext
+# # RUN /usr/local/bin/install-plugins.sh mailer
+# # RUN /usr/local/bin/install-plugins.sh slack
 
 # Artifacts
 RUN /usr/local/bin/install-plugins.sh htmlpublisher
@@ -15,7 +15,7 @@ RUN /usr/local/bin/install-plugins.sh htmlpublisher
 RUN /usr/local/bin/install-plugins.sh greenballs
 RUN /usr/local/bin/install-plugins.sh simple-theme-plugin
 
-# Scaling
+# Plugin to enable Kubernetes Scaling for HA
 RUN /usr/local/bin/install-plugins.sh kubernetes
 
 # install Maven
