@@ -45,8 +45,8 @@ kubectl create -f jenkins-service.yaml
 ```groovy
 kubectl get service
 ```
-
-![image](Foluso-Ogunsakin/kubectl-term.JPG)  
+The jenkins cluster can be accessed via `http://<EXTERNAL IP>:8080`
+![image](Foluso-Ogunsakin/kubctl-term.JPG)  
 
 * Configure jenkins agents  
 
