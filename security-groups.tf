@@ -13,16 +13,16 @@ resource "aws_security_group" "worker_group_mgmt_one" {
     ]
   }
   
-  # Enable inbound jenkins traffic
-  ingress {
-    from_port = 8080
-    to_port   = 8080
-    protocol  = "tcp"
+  # # Enable inbound jenkins traffic
+  # ingress {
+  #   from_port = 8080
+  #   to_port   = 8080
+  #   protocol  = "tcp"
 
-    cidr_blocks = [
-      "0.0.0.0/0",
-    ]
-  }
+  #   cidr_blocks = [
+  #     "0.0.0.0/0",
+  #   ]
+  # }
 
 }
 
