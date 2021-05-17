@@ -2,10 +2,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: jenkins-loadbalancer
+  annotations:
+    # Backend talks over HTTP
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # ARN of the certificate.
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:iam::982275234323:server-certificate/jenkins-cert
+    # Run SSL on the port named "https" with self-signed certificate
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "https"
 spec:
   type: LoadBalancer
   ports:
-    - port: 8080
+    - name: https
+      port: 443
       targetPort: 8080
   selector:
     app: jenkins

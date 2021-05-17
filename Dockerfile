@@ -1,6 +1,6 @@
 FROM jenkins/jenkins:2.277.4-lts
 
-# Distributed Builds plugins
+# Distributed Builds plugins for jenkins slave agents
 RUN /usr/local/bin/install-plugins.sh ssh-slaves
 
 # # install Notifications and Publishing plugins

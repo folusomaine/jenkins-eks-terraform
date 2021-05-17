@@ -13,9 +13,6 @@ Pods as well will be deployed evenly to these nodes in various subnets.
 
 Security:
 kubernetes cluster is deployed in private subnets with the necessary security groups rules.
-Although I didn't get to the https part, I was thinking of the best way to implement it and still maintain the 'bare metal' policy.
-My thought is to use the nginx ingress controller with cert-manager to setup LetsEncrypt and configure the nginx deployment to expose the jenkins app on kubernetes.
-This serves as a proxy and provides the necessary security layer. 
+Self-signed certificate was created using OpenSSL and uploaded to IAM via CLI
 
-I personally want to achieve this given more spare time and I can share if the time window at Alpian is still open.
 I enjoyed the exercise!
