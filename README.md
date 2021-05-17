@@ -16,6 +16,7 @@ Docker image is built locally and hosted at [`folusomaine/jenkins-eks:1.2`](http
 * [`AWS IAM Authenticator`](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 * [`AWS CLI`](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html)
 * [`Kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+* OpenSSL (Self-signed certificate)
 * Terraform :innocent:  
 
 ### Steps
@@ -37,15 +38,30 @@ aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terr
 ```groovy
 kubectl apply -f jenkins-deployment.yaml
 ```  
-* Create jenkins service  
+* Generate a Self-signed Certificate using OpenSSL  
+```groovy
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout privateKey.key -out certificate.crt
+```  
+* Convert the private key and the public certificate into .pem encoded file  
+```groovy
+openssl rsa -in privateKey.key -text > private.pem
+openssl x509 -inform PEM -in certificate.crt > public.pem
+```  
+* Upload the certicate via AWS IAM CLI (Ensure the file path is valid)
+```groovy
+aws iam upload-server-certificate --server-certificate-name CSC --certificate-body file://public.pem --private-key file://private.pem
+```
+* Obtain the ARN from the output from above and update the [`jenkins kubernetes service file`](https://github.com/folusomaine/terrajenkeks/blob/master/jenkins-service.yaml).  
+
+* Create the jenkins service  
 ```groovy
 kubectl create -f jenkins-service.yaml
 ```
-* Obtain jenkins url to access the jenkins master
+* Obtain the jenkins url to access the jenkins master
 ```groovy
 kubectl get service
 ```
-The jenkins cluster can be accessed via `http://<EXTERNAL IP>:8080`
+The jenkins cluster can be accessed via `https://<EXTERNAL IP>` address
 ![image](Foluso-Ogunsakin/kubctl-term.JPG)  
 
 * Configure jenkins agents  
@@ -56,6 +72,6 @@ Add the Kubernetes service IP and jenkins URL
 
 ![image](Foluso-Ogunsakin/jenkins-slave.JPG)
 
-Configure the agents using the default docker images `jenkinsci/jnlp-slave`  
+Configure the agents using the default jenkins slave docker images `jenkinsci/jnlp-slave`  
 
-Now we can run simultaneous builds that will provision multiple jenkins agents.
+Now we can run simultaneous builds that will provision multiple jenkins agents on multiple worker nodes.
