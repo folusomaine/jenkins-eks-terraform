@@ -54,7 +54,10 @@ openssl x509 -inform PEM -in certificate.crt > public.pem
 aws iam upload-server-certificate --server-certificate-name jenkins-cert --certificate-body file://public.pem --private-key file://private.pem
 ```
 * Obtain the ARN from the output above and update the [`jenkins kubernetes service file`](https://github.com/folusomaine/terrajenkeks/blob/master/jenkins-service.yaml).  
-
+```groovy
+# ARN of the certificate.
+service.beta.kubernetes.io/aws-load-balancer-ssl-cert: <ARN>
+```
 * Create the jenkins service  
 ```groovy
 kubectl create -f jenkins-service.yaml

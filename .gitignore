@@ -31,3 +31,4 @@ override.tf.json
 # Ignore certificate and keys
 *.pem
 *.key
+*.crt
