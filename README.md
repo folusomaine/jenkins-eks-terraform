@@ -51,9 +51,9 @@ openssl x509 -inform PEM -in certificate.crt > public.pem
 
 * Upload the certicate via AWS IAM CLI (Ensure the file path is valid)
 ```groovy
-aws iam upload-server-certificate --server-certificate-name CSC --certificate-body file://public.pem --private-key file://private.pem
+aws iam upload-server-certificate --server-certificate-name jenkins-cert --certificate-body file://public.pem --private-key file://private.pem
 ```
-* Obtain the ARN from the output from above and update the [`jenkins kubernetes service file`](https://github.com/folusomaine/terrajenkeks/blob/master/jenkins-service.yaml).  
+* Obtain the ARN from the output above and update the [`jenkins kubernetes service file`](https://github.com/folusomaine/terrajenkeks/blob/master/jenkins-service.yaml).  
 
 * Create the jenkins service  
 ```groovy
