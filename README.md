@@ -1,6 +1,6 @@
-# Technical Test
+# Jenkins HA Cluster
 
-## Jenkins HA Cluster
+## Introduction
 
 This code creates a Kubernetes cluster with 2 worker nodes on AWS using Terraform.  
 
