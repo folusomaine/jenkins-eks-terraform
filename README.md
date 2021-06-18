@@ -67,15 +67,15 @@ kubectl create -f jenkins-service.yaml
 kubectl get service
 ```
 The jenkins cluster can be accessed via `https://<EXTERNAL IP>` address
-![image](Foluso-Ogunsakin/kubctl-term.JPG)  
+![image](assets/kubctl-term.JPG)  
 
 * Configure jenkins agents  
 
-![image](Foluso-Ogunsakin/Kub-jenk-Conf.JPG)  
+![image](assets/Kub-jenk-Conf.JPG)  
 
 Add the Kubernetes service IP and jenkins URL  
 
-![image](Foluso-Ogunsakin/jenkins-slave.JPG)
+![image](assets/jenkins-slave.JPG)
 
 Configure the agents using the default jenkins slave docker images `jenkinsci/jnlp-slave`  
 
